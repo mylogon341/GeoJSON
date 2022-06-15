@@ -44,7 +44,7 @@ public struct Feature: Equatable, Codable {
         }
         let properties = try container.decodeIfPresent([String: AnyCodable].self, forKey: .properties)
         self.properties = properties.flatMap { Properties(data: $0) }
-        self.boundingBox = try? container.decodeIfPresent(BoundingBox.self, forKey: .boundingBox)
+        self.boundingBox = try container.decodeIfPresent(BoundingBox.self, forKey: .boundingBox)
     }
 
     public func encode(to encoder: Encoder) throws {
