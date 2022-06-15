@@ -15,9 +15,11 @@ public struct BoundingBox: Equatable, Codable {
         case unexpectedValueCount
     }
 
-    public init(from decoder: Decoder) throws {
+    public init?(from decoder: Decoder) throws {
         var container = try decoder.unkeyedContainer()
         switch container.count {
+        case 0:
+            return nil
         case 4:
             self.southWesterly = Position(longitude: try container.decode(Double.self),
                                           latitude: try container.decode(Double.self))
