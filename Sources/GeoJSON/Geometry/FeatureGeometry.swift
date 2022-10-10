@@ -1,4 +1,4 @@
-public enum Geometry: Equatable, Codable {
+public enum FeatureGeometry: Equatable, Codable {
     /// A single point, containing only the coordinates of a `Position`.
     case point(Point)
     /// Several `Position`s.

@@ -42,7 +42,7 @@ final class GeometryTests: XCTestCase {
         }
         """.data(using: .utf8)!
 
-        let geoCollection = try JSONDecoder().decode(Geometry.self, from: json)
+        let geoCollection = try JSONDecoder().decode(FeatureGeometry.self, from: json)
         guard case let .geometryCollection(geoCol) = geoCollection else { XCTFail(); return }
         XCTAssertEqual(geoCol.count, 2)
     }
@@ -115,7 +115,7 @@ final class GeometryTests: XCTestCase {
     }
 
     func testEncodeGeometry() throws {
-        let geoPoint = Geometry.point(Point(coordinates: Position(longitude: 1.0, latitude: 1.0)))
+        let geoPoint = FeatureGeometry.point(Point(coordinates: Position(longitude: 1.0, latitude: 1.0)))
         XCTAssertEqual(try jsonRepr(geoPoint), """
         {
           "coordinates" : [
@@ -128,7 +128,7 @@ final class GeometryTests: XCTestCase {
     }
 
     func testEncodeGeometryCollection() throws {
-        let geoCollection = Geometry.geometryCollection([
+        let geoCollection = FeatureGeometry.geometryCollection([
             .point(Point(longitude: 1.0, latitude: 1.0)),
             .multiPoint(MultiPoint(coordinates: [Position(longitude: 2.0, latitude: 2.0)]))
         ])

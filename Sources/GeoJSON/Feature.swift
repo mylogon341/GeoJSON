@@ -3,7 +3,7 @@ import AnyCodable
 /// A `Feature` represents a spatially bounded "thing" which is represented by its geometry (or missing it if it is unlocated).
 public struct Feature: Equatable, Codable {
     let type = "Feature"
-    public var geometry: Geometry?
+    public var geometry: FeatureGeometry?
     /// A commonly used identifier, if known.
     /// - Warning: While IDs can be numbers according to the [specification](https://tools.ietf.org/html/rfc7946#section-3.2), they are always decoded as
     ///            `String`s if present.
@@ -24,7 +24,7 @@ public struct Feature: Equatable, Codable {
     ///   - geometry: A `Geometry` object or `nil` if the `Feature` is unlocated.
     ///   - id: If a `Feature` has a commonly used identifier, this should be included.
     ///   - properties: Any additional properties that should be included with the `Feature`.
-    public init(geometry: Geometry?,
+    public init(geometry: FeatureGeometry?,
                 id: String? = nil,
                 properties: [String: AnyCodable]? = nil,
                 boundingBox: BoundingBox? = nil) {
@@ -36,7 +36,7 @@ public struct Feature: Equatable, Codable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        geometry = try container.decode(Geometry.self, forKey: .geometry)
+        geometry = try container.decode(FeatureGeometry.self, forKey: .geometry)
         if let id = try? container.decodeIfPresent(String.self, forKey: .id) {
             self.id = id
         } else if let id = try container.decodeIfPresent(Double.self, forKey: .id) {
